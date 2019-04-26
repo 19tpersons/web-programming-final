@@ -1,3 +1,23 @@
+<?PHP
+	require_once("loginClass.php");
+	
+	//Is a session already going?
+	if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+	
+	if (!empty($_POST['username'])) {
+		$login = new Login();
+		$match = $login->verify($_POST['username'], $_POST['password']);
+		if ($match) {
+			$_SESSION['status'] = $match;
+			print '<script>alert("GOOD! '.  $match .'");</script>';
+			//We can add a redirect here ... header("Location: index.php");
+		}	
+	}
+	
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
